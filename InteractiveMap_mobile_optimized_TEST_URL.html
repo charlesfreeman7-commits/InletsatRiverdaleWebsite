@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Map</title>
+  <style>
+    
+/* Mobile/touch behavior: tap to reveal label + highlight */
+  a.active .label { visibility: visible; }
+
+  .zone:focus { outline: none; }
+  a:focus .zone, a:active .zone, a.active .zone {
+    fill: rgba(255,200,0,0.35);
+    stroke: rgba(255,200,0,0.9);
+    stroke-width: 2;
+  }
+
+  /* Improve tap targeting slightly by giving an invisible stroke that participates in hit-testing */
+  .zone {
+    stroke-width: 12;
+    stroke: rgba(0,0,0,0);
+    vector-effect: non-scaling-stroke;
+  }
+  .zone:hover { stroke-width: 12; } /* keep consistent */
+
+  /* Labels: make a bit larger on small screens */
+  @media (max-width: 600px) {
+    .label { font-size: 14px; }
+  }
+html, body { margin:0; padding:0; height:100%; }
+    body { display:flex; align-items:center; justify-content:center; background:#f5f5f5; }
+    .frame { width:min(1100px, 100vw); }
+    svg { width:100%; height:auto; display:block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+<svg
+
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="InletsInteractiveMap.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+<style>
+  /* Hotspots */
+  .zone{
+    fill: rgba(0,0,0,0.001); /* non-zero alpha helps hit-testing */
+    stroke: rgba(0,0,0,0);
+    pointer-events: all;
+    cursor: pointer;
+    transition: fill .2s ease, stroke .2s ease;
+  }
+  .zone:hover{
+    fill: rgba(255,200,0,0.35);
+  }
+
+  /* Hover labels */
+  .label{
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    paint-order: stroke;
+    stroke: #ffffff;
+    stroke-width: 2px;
+  }
+  a:hover .label{
+    visibility: visible;
+  }
+</style>
+<sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.1171296"
+     inkscape:cx="396.99959"
+     inkscape:cy="830.2528"
+     inkscape:window-width="1600"
+     inkscape:window-height="829"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"><image
+       width="315.11874"
+       height="192.08749"
+       preserveAspectRatio="none"
+       xlink:href="https://charlesfreeman72.wixsite.com/island-bay-condo-ass/about"
+       id="image1"
+       x="-105.32988"
+       y="80.49408"
+       style="stroke:#000000;stroke-opacity:1" /><rect
+       style="fill:#000000;stroke-width:0.264583;stroke:#000000;stroke-opacity:1"
+       id="rect1"
+       width="45.947369"
+       height="0"
+       x="145.89473"
+       y="90.473686" /><rect
+       style="fill:#000000;stroke-width:0.264583;stroke:#000000;stroke-opacity:1"
+       id="rect2"
+       width="0.47368419"
+       height="9.4736834"
+       x="174.3158"
+       y="92.368416" /><rect
+       style="fill:#000000;stroke-width:0.264583;stroke:#000000;stroke-opacity:1"
+       id="rect4"
+       width="0.47368419"
+       height="8.0526314"
+       x="174.78947"
+       y="107.05264" /><rect
+       style="fill:#000000;stroke-width:0.264583;stroke:#000000;stroke-opacity:1"
+       id="rect6"
+       width="0"
+       height="0"
+       x="207.47369"
+       y="113.21053" />
+
+<a href="https://charlesfreeman72.wixsite.com/island-bay-condo-ass/about" target="_top">
+  <path
+     class="zone"
+     d="m -11.842105,152.76316 -0.236842,28.65789 70.578946,8.28947 25.105264,-10.42105 22.499997,-17.76316 12.78947,3.78948 5.68422,4.5 32.92105,-18 18.23684,-3.55263 15.39474,0.94737 2.60526,-68.210532 h -58.5 l -11.60526,16.578948 -20.60527,13.973684 -8.763154,34.34211 -6.868419,-2.84211 -24.868423,12.07895 -24.157895,4.5 -20.842103,-5.44737 -29.605263,-3.55263 z"
+     id="path7"
+  />
+    <text class="label" x="-5.84" y="146.76" visibility="hidden">Tidal Reserve</text>
+
+</a>
+
+<a href="https://charlesfreeman72.wixsite.com/island-bay-condo-ass/about" target="_top">
+	<path class="zone"
+      
+       d="M 58.499999,189.71052 Z"
+       id="path8" />
+    <text class="label" x="64.50" y="183.71" visibility="hidden">The Inlets</text>
+
+</a>
+
+<a href="https://charlesfreeman72.wixsite.com/island-bay-condo-ass/about" target="_top">
+<path class="zone"
+      
+       d="m 83.605263,179.28947 29.842107,65.84211 22.26315,-14.44737 5.68421,12.07895 15.1579,2.13157 15.63158,7.57895 -5.92105,17.28948 12.31578,0.23683 c 0,0 -7.3421,-16.81578 -4.73684,-16.81578 2.60527,0 9.23685,1.18421 8.76316,0.23684 C 182.13158,252.47368 181.65789,252 181.65789,252 l 2.36842,1.89473 7.10527,-104.6842 v 0 0 c 0,0 0,0 0,0 v 0"
+       id="path9" />
+    <text class="label" x="89.61" y="173.29" visibility="hidden">Harbour Walk</text>
+</a></g>
+
+</svg>
+  </div>
+<script>
+(function(){
+  const isTouch = matchMedia && matchMedia('(pointer: coarse)').matches;
+  const root = document.querySelector('svg');
+  if (!root) return;
+
+  const links = Array.from(root.querySelectorAll('a[href]'));
+
+  function clearActive(except){
+    links.forEach(a => {
+      if (a !== except) a.classList.remove('active');
+    });
+  }
+
+  // For touch: first tap shows label/highlight, second tap navigates.
+  if (isTouch) {
+    links.forEach(a => {
+      a.addEventListener('click', function(e){
+        // If not active yet, prevent navigation and activate.
+        if (!a.classList.contains('active')) {
+          e.preventDefault();
+          clearActive(a);
+          a.classList.add('active');
+
+          // Auto-clear after a moment so users don't get "stuck"
+          window.clearTimeout(a._chTimer);
+          a._chTimer = window.setTimeout(() => a.classList.remove('active'), 2500);
+        } else {
+          // Allow navigation on second tap
+          clearActive(a);
+        }
+      }, { passive: false });
+    });
+
+    // Tap outside clears active state
+    document.addEventListener('click', (e) => {
+      const inside = e.target.closest && e.target.closest('svg a[href]');
+      if (!inside) clearActive(null);
+    });
+  } else {
+    // For mouse/keyboard: show label on focus too
+    links.forEach(a => {
+      a.addEventListener('focusin', () => { clearActive(a); a.classList.add('active'); });
+      a.addEventListener('focusout', () => { a.classList.remove('active'); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
