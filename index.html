@@ -1,346 +1,134 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Inlets at Riverdale Interactive Map</title>
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-}
-.wrap {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-}
-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+<!-- Legend in upper-left below streets -->
+  <g class="overlay-panel legend-box" transform="translate(22,160)">
+    <rect width="264" height="124"></rect>
+    <text x="14" y="26" class="overlay-title">Map Legend</text>
 
-/* Top-left street name box */
-.street-box {
-  fill: rgba(31, 122, 77, 0.92);
-  stroke: white;
-  stroke-width: 1.2;
-  rx: 10;
-  ry: 10;
-}
-.street-text {
-  fill: white;
-  font: 700 20px Arial, sans-serif;
-  dominant-baseline: middle;
-}
-.street-label {
-  display: none;
-  pointer-events: none;
-}
-.streetgroup:hover .street-label,
-.streetgroup:focus-within .street-label {
-  display: block;
-}
-.street-hit {
-  fill: none;
-  stroke: rgba(31,122,77,0.01);
-  stroke-width: 16;
-  vector-effect: non-scaling-stroke;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: stroke;
-  cursor: pointer;
-}
-.streetgroup:hover .street-hit,
-.streetgroup:focus-within .street-hit {
-  stroke: rgba(31,122,77,0.95);
-  stroke-width: 5;
-}
+    <circle cx="22" cy="50" r="6" class="facility-dot preserve-dot"></circle>
+    <text x="38" y="55" class="overlay-text">Inlets Preserve</text>
 
-/* Preserve */
-.preserve {
-  fill: rgba(76, 175, 80, 0.18);
-  stroke: #1f7a4d;
-  stroke-width: 2.2;
-}
+    <circle cx="22" cy="74" r="6" class="facility-dot tennis-dot"></circle>
+    <text x="38" y="79" class="overlay-text">Tennis Courts</text>
 
-/* Subtle landmark labels */
-.facility-dot {
-  stroke: white;
-  stroke-width: 1.6;
-}
-.facility-label rect {
-  fill: #1f7a4d;
-  stroke: white;
-  stroke-width: 1;
-  rx: 8;
-  ry: 8;
-}
-.facility-label text {
-  fill: white;
-  font: 700 14px Arial, sans-serif;
-  dominant-baseline: middle;
-}
+    <circle cx="22" cy="98" r="6" class="lift-dot"></circle>
+    <text x="38" y="103" class="overlay-text">Canal Boat Lift</text>
 
-/* Boat lifts */
-.lift-dot {
-  fill: #2e7d32;
-  stroke: white;
-  stroke-width: 1.6;
-  cursor: pointer;
-}
-.lift-icon {
-  fill: #0e5b37;
-  stroke: white;
-  stroke-width: 0.8;
-  pointer-events: none;
-}
-.lift-label {
-  display: none;
-  pointer-events: none;
-}
-.boatlift:hover .lift-label,
-.boatlift:focus-within .lift-label {
-  display: block;
-}
-.lift-label rect {
-  fill: #2e7d32;
-  stroke: white;
-  stroke-width: 1;
-  rx: 6;
-  ry: 6;
-}
-.lift-label text {
-  fill: white;
-  font: 700 12px Arial, sans-serif;
-  dominant-baseline: middle;
-}
-</style>
-</head>
-<body>
-<div class="wrap">
-
-<svg viewBox="0 0 1600 1580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Inlets at Riverdale Interactive Map</title>
-  <desc id="desc">Interactive map of The Inlets at Riverdale with street hover labels, preserve, tennis court, community boat ramp, and canal boat lifts.</desc>
-
-  <!-- Base image -->
-  <image href="./inlets_map.png" x="0" y="0" width="1600" height="1580" />
-
-  <!-- Persistent top-left box over water -->
-  <g aria-hidden="true">
-    <rect class="street-box" x="24" y="24" width="360" height="58" />
+    <circle cx="22" cy="122" r="6" class="facility-dot ramp-dot"></circle>
+    <text x="38" y="127" class="overlay-text">Inlets Community Boat Ramp</text>
   </g>
 
-  <!-- Streets -->
-  <g class="streetgroup" tabindex="0" aria-label="Regatta Way">
-    <path class="street-hit" d="M 772,206 L 837,183 L 897,179" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="220" height="58" />
-      <text class="street-text" x="44" y="53">Regatta Way</text>
+  <!-- Facility labels -->
+  <path class="leader" d="M 610 60 L 694 159" />
+  <g class="label-box" transform="translate(465,34)">
+    <rect width="148" height="28"></rect>
+    <text x="12" y="15">Inlets Preserve</text>
+  </g>
+
+  <path class="leader" d="M 632 96 L 709 196" />
+  <g class="label-box" transform="translate(498,70)">
+    <rect width="134" height="28"></rect>
+    <text x="12" y="15">Tennis Courts</text>
+  </g>
+
+  <path class="leader" d="M 525 448 L 485 410" />
+  <g class="label-box" transform="translate(525,438)">
+    <rect width="214" height="28"></rect>
+    <text x="12" y="15">Inlets Community Boat Ramp</text>
+  </g>
+
+  <!-- Facility dots mapped to revised PNG -->
+  <circle class="facility-dot preserve-dot" cx="694" cy="159" r="6" />
+  <circle class="facility-dot tennis-dot" cx="709" cy="196" r="6" />
+  <circle class="facility-dot ramp-dot" cx="485" cy="410" r="6" />
+
+  <!-- Canal boat lifts -->
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="521" cy="178" r="6" />
+    <g class="lift-label" transform="translate(533,164)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 1</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Fore Drive">
-    <path class="street-hit" d="M 877,305 L 929,272 L 973,244" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="220" height="58" />
-      <text class="street-text" x="44" y="53">Fore Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="509" cy="228" r="6" />
+    <g class="lift-label" transform="translate(521,214)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 2</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Mast Drive">
-    <path class="street-hit" d="M 948,372 L 1010,333 L 1060,303" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="220" height="58" />
-      <text class="street-text" x="44" y="53">Mast Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="553" cy="268" r="6" />
+    <g class="lift-label" transform="translate(565,254)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 3</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Mainsail Drive">
-    <path class="street-hit" d="M 885,493 L 986,449 L 1093,402" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="250" height="58" />
-      <text class="street-text" x="44" y="53">Mainsail Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="579" cy="292" r="6" />
+    <g class="lift-label" transform="translate(591,278)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 4</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Pinnacle Drive">
-    <path class="street-hit" d="M 1000,545 L 1128,489" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="250" height="58" />
-      <text class="street-text" x="44" y="53">Pinnacle Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="563" cy="305" r="6" />
+    <g class="lift-label" transform="translate(575,291)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 5</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="5th Avenue Northeast">
-    <path class="street-hit" d="M 410,560 L 607,603" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="320" height="58" />
-      <text class="street-text" x="44" y="53">5th Avenue NE</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="601" cy="319" r="6" />
+    <g class="lift-label" transform="translate(613,305)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 6</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="36th Street Northeast">
-    <path class="street-hit" d="M 339,551 L 351,775" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="320" height="58" />
-      <text class="street-text" x="44" y="53">36th Street NE</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="583" cy="334" r="6" />
+    <g class="lift-label" transform="translate(595,320)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 7</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Blue Marlin Drive">
-    <path class="street-hit" d="M 676,820 L 825,894" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="320" height="58" />
-      <text class="street-text" x="44" y="53">Blue Marlin Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="617" cy="350" r="6" />
+    <g class="lift-label" transform="translate(629,336)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 8</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Halyard Drive">
-    <path class="street-hit" d="M 846,749 L 961,794" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="250" height="58" />
-      <text class="street-text" x="44" y="53">Halyard Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="635" cy="378" r="6" />
+    <g class="lift-label" transform="translate(647,364)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 9</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Compass Point">
-    <path class="street-hit" d="M 1033,709 L 1147,755" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="250" height="58" />
-      <text class="street-text" x="44" y="53">Compass Point</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="648" cy="408" r="6" />
+    <g class="lift-label" transform="translate(660,394)">
+      <rect width="120" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 10</text>
     </g>
   </g>
 
-  <g class="streetgroup" tabindex="0" aria-label="Barracuda Drive">
-    <path class="street-hit" d="M 719,958 L 872,1036" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="280" height="58" />
-      <text class="street-text" x="44" y="53">Barracuda Drive</text>
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="656" cy="443" r="6" />
+    <g class="lift-label" transform="translate(628,456)">
+      <rect width="120" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 11</text>
     </g>
-  </g>
-
-  <g class="streetgroup" tabindex="0" aria-label="Americas Cup Boulevard">
-    <path class="street-hit" d="M 1038,783 L 1043,1045" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="360" height="58" />
-      <text class="street-text" x="44" y="53">Americas Cup Blvd</text>
-    </g>
-  </g>
-
-  <g class="streetgroup" tabindex="0" aria-label="48th Street Court Northeast">
-    <path class="street-hit" d="M 1191,171 L 1190,513" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="360" height="58" />
-      <text class="street-text" x="44" y="53">48th Street Court NE</text>
-    </g>
-  </g>
-
-  <g class="streetgroup" tabindex="0" aria-label="Route 64">
-    <path class="street-hit" d="M 144,1447 L 1100,1447" />
-    <g class="street-label">
-      <rect class="street-box" x="24" y="24" width="180" height="58" />
-      <text class="street-text" x="44" y="53">Route 64</text>
-    </g>
-  </g>
-
-  <!-- Inlets Preserve -->
-  <g id="inlets-preserve" aria-label="Inlets Preserve">
-    <polygon class="preserve" points="577,72 680,24 684,173 576,176 610,119" />
-    <g class="facility-label">
-      <rect x="548" y="38" width="150" height="32" />
-      <text x="560" y="54">Inlets Preserve</text>
-    </g>
-  </g>
-
-  <!-- Tennis Court -->
-  <g id="tennis-court" aria-label="Tennis Court">
-    <circle class="facility-dot" cx="678" cy="174" r="7" fill="#1e88e5" />
-    <g class="facility-label">
-      <rect x="536" y="154" width="138" height="32" />
-      <text x="548" y="170">Tennis Court</text>
-    </g>
-  </g>
-
-  <!-- Community Boat Ramp -->
-  <g id="boat-ramp" aria-label="Inlets Community Boat Ramp">
-    <circle class="facility-dot" cx="291" cy="689" r="7" fill="#ba68c8" />
-    <g class="facility-label">
-      <rect x="305" y="673" width="218" height="32" />
-      <text x="317" y="689">Inlets Community Boat Ramp</text>
-    </g>
-  </g>
-
-  <!-- Boat lifts from red-dot placement -->
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 1">
-    <circle class="lift-dot" cx="381" cy="193" r="6"/>
-    <path class="lift-icon" d="M 377,193 l 4,-8 l 4,8 M 375,193 h 12 M 381,193 v 8"/>
-    <g class="lift-label"><rect x="393" y="180" width="126" height="28"/><text x="403" y="195">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 2">
-    <circle class="lift-dot" cx="431" cy="227" r="6"/>
-    <path class="lift-icon" d="M 427,227 l 4,-8 l 4,8 M 425,227 h 12 M 431,227 v 8"/>
-    <g class="lift-label"><rect x="443" y="214" width="126" height="28"/><text x="453" y="229">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 3">
-    <circle class="lift-dot" cx="530" cy="291" r="6"/>
-    <path class="lift-icon" d="M 526,291 l 4,-8 l 4,8 M 524,291 h 12 M 530,291 v 8"/>
-    <g class="lift-label"><rect x="542" y="278" width="126" height="28"/><text x="552" y="293">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 4">
-    <circle class="lift-dot" cx="498" cy="359" r="6"/>
-    <path class="lift-icon" d="M 494,359 l 4,-8 l 4,8 M 492,359 h 12 M 498,359 v 8"/>
-    <g class="lift-label"><rect x="510" y="346" width="126" height="28"/><text x="520" y="361">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 5">
-    <circle class="lift-dot" cx="529" cy="393" r="6"/>
-    <path class="lift-icon" d="M 525,393 l 4,-8 l 4,8 M 523,393 h 12 M 529,393 v 8"/>
-    <g class="lift-label"><rect x="541" y="380" width="126" height="28"/><text x="551" y="395">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 6">
-    <circle class="lift-dot" cx="529" cy="417" r="6"/>
-    <path class="lift-icon" d="M 525,417 l 4,-8 l 4,8 M 523,417 h 12 M 529,417 v 8"/>
-    <g class="lift-label"><rect x="541" y="404" width="126" height="28"/><text x="551" y="419">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 7">
-    <circle class="lift-dot" cx="567" cy="467" r="6"/>
-    <path class="lift-icon" d="M 563,467 l 4,-8 l 4,8 M 561,467 h 12 M 567,467 v 8"/>
-    <g class="lift-label"><rect x="579" y="454" width="126" height="28"/><text x="589" y="469">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 8">
-    <circle class="lift-dot" cx="596" cy="552" r="6"/>
-    <path class="lift-icon" d="M 592,552 l 4,-8 l 4,8 M 590,552 h 12 M 596,552 v 8"/>
-    <g class="lift-label"><rect x="608" y="539" width="126" height="28"/><text x="618" y="554">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 9">
-    <circle class="lift-dot" cx="626" cy="629" r="6"/>
-    <path class="lift-icon" d="M 622,629 l 4,-8 l 4,8 M 620,629 h 12 M 626,629 v 8"/>
-    <g class="lift-label"><rect x="638" y="616" width="126" height="28"/><text x="648" y="631">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 10">
-    <circle class="lift-dot" cx="615" cy="720" r="6"/>
-    <path class="lift-icon" d="M 611,720 l 4,-8 l 4,8 M 609,720 h 12 M 615,720 v 8"/>
-    <g class="lift-label"><rect x="627" y="707" width="126" height="28"/><text x="637" y="722">Canal boat lift</text></g>
-  </g>
-
-  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 11">
-    <circle class="lift-dot" cx="656" cy="810" r="6"/>
-    <path class="lift-icon" d="M 652,810 l 4,-8 l 4,8 M 650,810 h 12 M 656,810 v 8"/>
-    <g class="lift-label"><rect x="668" y="797" width="126" height="28"/><text x="678" y="812">Canal boat lift</text></g>
   </g>
 </svg>
-
 </div>
 </body>
 </html>
