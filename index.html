@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inlets at Riverdale Interactive Map</title>
+<style>
+  :root{
+    --panel-bg: rgba(255,255,255,0.96);
+    --panel-border: #cfd8dc;
+    --shadow: 0 10px 24px rgba(0,0,0,0.18);
+  }
+  html, body{
+    margin:0;
+    padding:0;
+    background:#fff;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  .wrap{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    position:relative;
+  }
+  svg{
+    display:block;
+    width:100%;
+    height:auto;
+    overflow:visible;
+    background:#fff;
+  }
+  .map-image{ image-rendering:auto; }
+
+  .marker{
+    stroke:#fff;
+    stroke-width:1.5;
+  }
+  .marker-yellow{ fill:#ffeb3b; }
+  .marker-red{ fill:#c62828; }
+  .marker-orange{ fill:#fb8c00; }
+  .marker-purple{ fill:#8e24aa; }
+
+  .lift-number{
+    font-size:6px;
+    font-weight:700;
+    fill:#222;
+    text-anchor:middle;
+    dominant-baseline:middle;
+    pointer-events:none;
+  }
+
+  .callout line{
+    stroke:#37474f;
+    stroke-width:1.4;
+  }
+  .callout rect{
+    rx:7;
+    ry:7;
+    stroke:#fff;
+    stroke-width:1;
+  }
+  .callout text{
+    fill:#fff;
+    font-size:7px;
+    font-weight:700;
+    dominant-baseline:middle;
+  }
+  .callout-red rect{ fill:#b71c1c; }
+  .callout-orange rect{ fill:#e67e22; }
+  .callout-purple rect{ fill:#7b1fa2; }
+  .callout-yellow rect{ fill:#7a7600; }
+
+  .legend{
+    position:absolute;
+    left:12px;
+    bottom:12px;
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    padding:8px 10px;
+    box-shadow:var(--shadow);
+    font-size:12px;
+    line-height:1.25;
+    max-width:235px;
+  }
+  .legend h3{
+    margin:0 0 6px 0;
+    font-size:13px;
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin:4px 0;
+  }
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    border:1.25px solid #fff;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.18);
+    flex:0 0 10px;
+  }
+  .red{ background:#c62828; }
+  .orange{ background:#fb8c00; }
+  .yellow{ background:#ffeb3b; }
+  .purple{ background:#8e24aa; }
+
+  .streets-control{
+    position:absolute;
+    left:12px;
+    top:12px;
+    z-index:20;
+  }
+  .streets-button{
+    display:inline-block;
+    background:rgba(26,115,232,0.95);
+    color:#fff;
+    padding:8px 12px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    user-select:none;
+  }
+  .streets-panel{
+    display:none;
+    margin-top:8px;
+    width:min(430px, calc(100vw - 32px));
+    max-height:min(76vh, 760px);
+    overflow:auto;
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:10px;
+  }
+  .streets-control:hover .streets-panel,
+  .streets-control:focus-within .streets-panel{
+    display:block;
+  }
+  .streets-panel h3{
+    margin:0 0 6px 0;
+    font-size:16px;
+  }
+  .streets-panel p{
+    margin:0 0 8px 0;
+    font-size:12px;
+    color:#37474f;
+  }
+  .streets-panel img{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid #d9e1e5;
+    border-radius:10px;
+    margin-bottom:10px;
+    background:#fff;
+  }
+
+  .assoc path, .assoc polygon{
+    fill:rgba(30,136,229,0.05);
+    stroke:rgba(30,136,229,0.10);
+    stroke-width:1.75;
+    cursor:pointer;
+    transition:fill .15s ease, stroke .15s ease;
+  }
+  .assoc:hover path,
+  .assoc:hover polygon{
+    fill:rgba(30,136,229,0.18);
+    stroke:rgba(30,136,229,0.80);
+  }
+  .assoc .tip{
+    display:none;
+    pointer-events:none;
+  }
+  .assoc:hover .tip{
+    display:block;
+  }
+  .tip rect{
+    fill:rgba(255,255,255,0.97);
+    stroke:#78909c;
+    stroke-width:1;
+    rx:8;
+    ry:8;
+  }
+  .tip text{
+    fill:#263238;
+    font-size:11px;
+    font-weight:700;
+  }
+
+  @media (max-width:700px){
+    .legend{
+      position:static;
+      margin:12px;
+      max-width:none;
+    }
+    .streets-control{
+      position:static;
+      margin:12px;
+    }
+    .streets-panel{
+      width:auto;
+      max-height:none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="streets-control" tabindex="0" aria-label="Street names reference">
+    <div class="streets-button">Hover here for street names</div>
+    <div class="streets-panel">
+      <h3>Inlets street-name reference</h3>
+      <p>These two reference images are shown on hover for street-name lookup.</p>
+      <img src="streets_overview_1.png" alt="Street names reference image 1" />
+      <img src="streets_overview_2.png" alt="Street names reference image 2" />
+    </div>
+  </div>
+
+  <svg viewBox="0 0 794 741" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive map of The Inlets at Riverdale">
+    <image class="map-image" href="inlets_map.png" x="0" y="0" width="794" height="741" preserveAspectRatio="xMidYMid meet" />
+
+    <!-- Refined association hover areas -->
+    <g class="assoc" aria-label="Harbour Walk">
+      <path d="M523,304
+               C575,298 642,300 720,307
+               L738,348
+               L744,392
+               L731,432
+               C682,432 637,429 594,425
+               C559,421 532,417 515,410
+               L499,366
+               Z" />
+      <g class="tip">
+        <rect x="18" y="68" width="154" height="28"></rect>
+        <text x="30" y="86">Harbour Walk</text>
+      </g>
+    </g>
+
+    <g class="assoc" aria-label="River Pointe">
+      <path d="M284,502
+               L327,468
+               L395,471
+               L468,475
+               L521,509
+               L536,560
+               L514,596
+               L466,608
+               L407,620
+               L349,627
+               L309,605
+               L289,557
+               Z" />
+      <g class="tip">
+        <rect x="18" y="100" width="154" height="28"></rect>
+        <text x="30" y="118">River Pointe</text>
+      </g>
+    </g>
+
+    <g class="assoc" aria-label="The Inlets">
+      <path d="M509,509
+               L585,501
+               L676,507
+               L753,521
+               L782,592
+               L789,705
+               L688,716
+               L563,719
+               L515,706
+               L493,648
+               L475,601
+               L470,559
+               Z" />
+      <g class="tip">
+        <rect x="18" y="132" width="154" height="28"></rect>
+        <text x="30" y="150">The Inlets</text>
+      </g>
+    </g>
+
+    <circle class="marker marker-red" cx="735" cy="351" r="5.5" />
+    <g class="callout callout-red">
+      <line x1="728" y1="347" x2="682" y2="324" />
+      <rect x="560" y="309" width="88" height="16" />
+      <text x="566" y="318">Inlets Preserve</text>
+    </g>
+
+    <circle class="marker marker-orange" cx="748" cy="398" r="5.5" />
+    <g class="callout callout-orange">
+      <line x1="742" y1="396" x2="686" y2="388" />
+      <rect x="567" y="379" width="77" height="16" />
+      <text x="573" y="388">Tennis Courts</text>
+    </g>
+
+    <circle class="marker marker-purple" cx="487" cy="582" r="5.5" />
+    <g class="callout callout-purple">
+      <line x1="481" y1="580" x2="395" y2="621" />
+      <rect x="220" y="613" width="154" height="16" />
+      <text x="226" y="622">Inlets Community Boat Ramp</text>
+    </g>
+
+    <g>
+      <circle class="marker marker-yellow" cx="542" cy="381" r="5.0" /><text class="lift-number" x="542" y="369">1</text>
+      <circle class="marker marker-yellow" cx="529" cy="426" r="5.0" /><text class="lift-number" x="529" y="414">2</text>
+      <circle class="marker marker-yellow" cx="573" cy="462" r="5.0" /><text class="lift-number" x="573" y="450">3</text>
+      <circle class="marker marker-yellow" cx="583" cy="491" r="5.0" /><text class="lift-number" x="583" y="479">4</text>
+      <circle class="marker marker-yellow" cx="606" cy="484" r="5.0" /><text class="lift-number" x="606" y="472">5</text>
+      <circle class="marker marker-yellow" cx="617" cy="507" r="5.0" /><text class="lift-number" x="617" y="495">6</text>
+      <circle class="marker marker-yellow" cx="635" cy="527" r="5.0" /><text class="lift-number" x="635" y="515">7</text>
+      <circle class="marker marker-yellow" cx="656" cy="542" r="5.0" /><text class="lift-number" x="656" y="530">8</text>
+      <circle class="marker marker-yellow" cx="676" cy="559" r="5.0" /><text class="lift-number" x="676" y="547">9</text>
+      <circle class="marker marker-yellow" cx="680" cy="589" r="5.0" /><text class="lift-number" x="680" y="577">10</text>
+      <circle class="marker marker-yellow" cx="687" cy="614" r="5.0" /><text class="lift-number" x="687" y="602">11</text>
+      <circle class="marker marker-yellow" cx="681" cy="626" r="5.0" /><text class="lift-number" x="681" y="638">12</text>
+    </g>
+
+    <g class="callout callout-yellow">
+      <line x1="606" y1="484" x2="520" y2="347" />
+      <rect x="392" y="333" width="91" height="16" />
+      <text x="398" y="342">Canal Boat Lifts</text>
+    </g>
+  </svg>
+
+  <div class="legend">
+    <h3>Map legend</h3>
+    <div class="legend-item"><span class="dot red"></span> Inlets Preserve</div>
+    <div class="legend-item"><span class="dot orange"></span> Tennis Courts</div>
+    <div class="legend-item"><span class="dot yellow"></span> Canal Boat Lift</div>
+    <div class="legend-item"><span class="dot purple"></span> Inlets Community Boat Ramp</div>
+  </div>
+
+</div>
+</body>
+</html>
