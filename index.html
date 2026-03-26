@@ -5,218 +5,342 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Inlets at Riverdale Interactive Map</title>
 <style>
-  :root{
-    --panel-bg: rgba(255,255,255,0.96);
-    --panel-border: #cfd8dc;
-    --shadow: 0 10px 24px rgba(0,0,0,0.18);
-    --hover-blue: rgba(30,136,229,0.06);
-    --hover-stroke: rgba(30,136,229,0.22);
-  }
-  html, body{
-    margin:0;
-    padding:0;
-    background:#fff;
-    font-family:Arial, Helvetica, sans-serif;
-  }
-  .wrap{
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    position:relative;
-  }
-  .top-instruction{
-    text-align:center;
-    font-size:16pt;
-    font-weight:700;
-    color:#1f2933;
-    margin:14px 12px 10px 12px;
-  }
-  .top-link{
-    text-align:left;
-    margin:0 12px 8px 12px;
-  }
-  .top-link a{
-    color:#1565c0;
-    text-decoration:underline;
-    font-size:14px;
-    font-weight:700;
-  }
-  svg{
-    display:block;
-    width:100%;
-    height:auto;
-    overflow:visible;
-    background:#fff;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+.wrap {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
-  .marker{ stroke:#fff; stroke-width:1.5; }
-  .marker-yellow{ fill:#ffeb3b; }
-  .marker-red{ fill:#c62828; }
-  .marker-orange{ fill:#fb8c00; }
-  .marker-purple{ fill:#8e24aa; }
+/* Top-left street name box */
+.street-box {
+  fill: rgba(31, 122, 77, 0.92);
+  stroke: white;
+  stroke-width: 1.2;
+  rx: 10;
+  ry: 10;
+}
+.street-text {
+  fill: white;
+  font: 700 20px Arial, sans-serif;
+  dominant-baseline: middle;
+}
+.street-label {
+  display: none;
+  pointer-events: none;
+}
+.streetgroup:hover .street-label,
+.streetgroup:focus-within .street-label {
+  display: block;
+}
+.street-hit {
+  fill: none;
+  stroke: rgba(31,122,77,0.01);
+  stroke-width: 16;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.streetgroup:hover .street-hit,
+.streetgroup:focus-within .street-hit {
+  stroke: rgba(31,122,77,0.95);
+  stroke-width: 5;
+}
 
-  .lift-number{
-    font-size:6px;
-    font-weight:700;
-    fill:#222;
-    text-anchor:middle;
-    dominant-baseline:middle;
-    pointer-events:none;
-  }
+/* Preserve */
+.preserve {
+  fill: rgba(76, 175, 80, 0.18);
+  stroke: #1f7a4d;
+  stroke-width: 2.2;
+}
 
-  .callout line{ stroke:#37474f; stroke-width:1.4; }
-  .callout rect{ rx:7; ry:7; stroke:#fff; stroke-width:1; }
-  .callout text{ fill:#fff; font-size:7px; font-weight:700; dominant-baseline:middle; }
-  .callout-red rect{ fill:#b71c1c; }
-  .callout-orange rect{ fill:#e67e22; }
-  .callout-purple rect{ fill:#7b1fa2; }
-  .callout-yellow rect{ fill:#7a7600; }
+/* Subtle landmark labels */
+.facility-dot {
+  stroke: white;
+  stroke-width: 1.6;
+}
+.facility-label rect {
+  fill: #1f7a4d;
+  stroke: white;
+  stroke-width: 1;
+  rx: 8;
+  ry: 8;
+}
+.facility-label text {
+  fill: white;
+  font: 700 14px Arial, sans-serif;
+  dominant-baseline: middle;
+}
 
-  .legend{
-    position:absolute;
-    left:12px;
-    bottom:12px;
-    background:var(--panel-bg);
-    border:1px solid var(--panel-border);
-    border-radius:12px;
-    padding:8px 10px;
-    box-shadow:var(--shadow);
-    font-size:12px;
-    line-height:1.25;
-    max-width:235px;
-    z-index:20;
-  }
-  .legend h3{ margin:0 0 6px 0; font-size:13px; }
-  .legend-item{ display:flex; align-items:center; gap:7px; margin:4px 0; }
-  .dot{
-    width:10px; height:10px; border-radius:50%;
-    border:1.25px solid #fff;
-    box-shadow:0 0 0 1px rgba(0,0,0,0.18);
-    flex:0 0 10px;
-  }
-  .red{ background:#c62828; }
-  .orange{ background:#fb8c00; }
-  .yellow{ background:#ffeb3b; }
-  .purple{ background:#8e24aa; }
-
-  .assoc-piece{
-    fill: rgba(30,136,229,0.015);
-    stroke: rgba(30,136,229,0.10);
-    stroke-width: 1.0;
-    cursor: pointer;
-    transition: fill .12s ease, stroke .12s ease;
-  }
-  .assoc-piece:hover,
-  .assoc-piece.active{
-    fill: var(--hover-blue);
-    stroke: var(--hover-stroke);
-    stroke-width: 1.2;
-  }
-
-  @media (max-width:700px){
-    .legend{ position:static; margin:12px; max-width:none; }
-  }
+/* Boat lifts */
+.lift-dot {
+  fill: #2e7d32;
+  stroke: white;
+  stroke-width: 1.6;
+  cursor: pointer;
+}
+.lift-icon {
+  fill: #0e5b37;
+  stroke: white;
+  stroke-width: 0.8;
+  pointer-events: none;
+}
+.lift-label {
+  display: none;
+  pointer-events: none;
+}
+.boatlift:hover .lift-label,
+.boatlift:focus-within .lift-label {
+  display: block;
+}
+.lift-label rect {
+  fill: #2e7d32;
+  stroke: white;
+  stroke-width: 1;
+  rx: 6;
+  ry: 6;
+}
+.lift-label text {
+  fill: white;
+  font: 700 12px Arial, sans-serif;
+  dominant-baseline: middle;
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="top-instruction">Move your mouse over the map to identify your homeowner's association</div>
-  <div class="top-link"><a href="street_names.html" target="_blank" rel="noopener">View Street Names</a></div>
+<svg viewBox="0 0 1600 1580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Inlets at Riverdale Interactive Map</title>
+  <desc id="desc">Interactive map of The Inlets at Riverdale with street hover labels, preserve, tennis court, community boat ramp, and canal boat lifts.</desc>
 
-  <svg viewBox="0 0 794 741" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive map of The Inlets at Riverdale">
-    <defs>
-      <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
-        <path d="M0,0 L8,4 L0,8 z" fill="#37474f"></path>
-      </marker>
-    </defs>
+  <!-- Base image -->
+  <image href="./inlets_map.png" x="0" y="0" width="1600" height="1580" />
 
-    <image href="inlets_map.png" x="0" y="0" width="794" height="741" preserveAspectRatio="xMidYMid meet" />
+  <!-- Persistent top-left box over water -->
+  <g aria-hidden="true">
+    <rect class="street-box" x="24" y="24" width="360" height="58" />
+  </g>
 
-    <path class="assoc-piece" data-hoa="Harbour Walk The Reserve" d="M575,94 L703,64 L735,96 L686,118 L588,136 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk The Reserve" d="M563,132 L688,118 L729,149 L681,171 L579,184 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk The Reserve" d="M553,174 L676,173 L722,205 L670,223 L567,227 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk The Reserve" d="M587,136 L594,226 L566,228 L550,210 Z" />
-
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M548,224 L666,224 L714,254 L657,272 L551,274 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M540,270 L651,275 L702,303 L644,321 L539,318 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M532,314 L637,322 L689,350 L628,365 L529,359 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M523,359 L619,367 L675,392 L614,409 L520,402 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M510,402 L604,410 L663,435 L603,450 L513,444 Z" />
-    <path class="assoc-piece" data-hoa="Harbour Walk" d="M729,255 L754,350 L734,355 L705,302 L693,255 Z" />
-
-    <path class="assoc-piece" data-hoa="Riverdale" d="M314,465 L443,472 L499,500 L370,516 L320,502 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M434,425 L561,432 L615,457 L486,478 L437,463 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M458,468 L586,476 L640,502 L513,522 L463,507 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M483,511 L610,519 L665,545 L537,565 L487,549 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M509,554 L636,563 L690,588 L563,608 L513,592 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M534,597 L660,606 L711,630 L585,649 L538,635 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M558,638 L681,647 L729,671 L608,689 L563,676 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M383,522 L507,528 L560,553 L436,573 L388,558 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M406,565 L530,572 L583,598 L457,618 L410,603 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M431,609 L553,617 L604,642 L481,660 L436,647 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M252,583 L323,557 L430,564 L409,610 L348,630 L287,617 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M245,536 L309,509 L409,516 L387,560 L330,579 L272,569 Z" />
-    <path class="assoc-piece" data-hoa="Riverdale" d="M236,493 L297,468 L392,473 L373,513 L318,531 L260,523 Z" />
-
-    <circle class="marker marker-red" cx="735" cy="351" r="5.5" />
-    <g class="callout callout-red">
-      <line x1="660" y1="102" x2="731" y2="346" marker-end="url(#arrowHead)" />
-      <rect x="606" y="94" width="60" height="16" />
-      <text x="612" y="103">Inlets Preserve</text>
+  <!-- Streets -->
+  <g class="streetgroup" tabindex="0" aria-label="Regatta Way">
+    <path class="street-hit" d="M 772,206 L 837,183 L 897,179" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="220" height="58" />
+      <text class="street-text" x="44" y="53">Regatta Way</text>
     </g>
+  </g>
 
-    <circle class="marker marker-orange" cx="748" cy="398" r="5.5" />
-    <g class="callout callout-orange">
-      <line x1="658" y1="156" x2="744" y2="396" marker-end="url(#arrowHead)" />
-      <rect x="616" y="148" width="44" height="16" />
-      <text x="622" y="157">Tennis Courts</text>
+  <g class="streetgroup" tabindex="0" aria-label="Fore Drive">
+    <path class="street-hit" d="M 877,305 L 929,272 L 973,244" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="220" height="58" />
+      <text class="street-text" x="44" y="53">Fore Drive</text>
     </g>
+  </g>
 
-    <circle class="marker marker-purple" cx="487" cy="582" r="5.5" />
-    <g class="callout callout-purple">
-      <line x1="292" y1="533" x2="482" y2="581" marker-end="url(#arrowHead)" />
-      <rect x="206" y="525" width="84" height="16" />
-      <text x="212" y="534">Inlets Community Boat Ramp</text>
+  <g class="streetgroup" tabindex="0" aria-label="Mast Drive">
+    <path class="street-hit" d="M 948,372 L 1010,333 L 1060,303" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="220" height="58" />
+      <text class="street-text" x="44" y="53">Mast Drive</text>
     </g>
+  </g>
 
-    <g>
-      <circle class="marker marker-yellow" cx="542" cy="381" r="5.0" /><text class="lift-number" x="542" y="369">1</text>
-      <circle class="marker marker-yellow" cx="529" cy="426" r="5.0" /><text class="lift-number" x="529" y="414">2</text>
-      <circle class="marker marker-yellow" cx="573" cy="462" r="5.0" /><text class="lift-number" x="573" y="450">3</text>
-      <circle class="marker marker-yellow" cx="583" cy="491" r="5.0" /><text class="lift-number" x="583" y="479">4</text>
-      <circle class="marker marker-yellow" cx="606" cy="484" r="5.0" /><text class="lift-number" x="606" y="472">5</text>
-      <circle class="marker marker-yellow" cx="617" cy="507" r="5.0" /><text class="lift-number" x="617" y="495">6</text>
-      <circle class="marker marker-yellow" cx="635" cy="527" r="5.0" /><text class="lift-number" x="635" y="515">7</text>
-      <circle class="marker marker-yellow" cx="656" cy="542" r="5.0" /><text class="lift-number" x="656" y="530">8</text>
-      <circle class="marker marker-yellow" cx="676" cy="559" r="5.0" /><text class="lift-number" x="676" y="547">9</text>
-      <circle class="marker marker-yellow" cx="680" cy="589" r="5.0" /><text class="lift-number" x="680" y="577">10</text>
-      <circle class="marker marker-yellow" cx="687" cy="614" r="5.0" /><text class="lift-number" x="687" y="602">11</text>
-      <circle class="marker marker-yellow" cx="681" cy="626" r="5.0" /><text class="lift-number" x="681" y="638">12</text>
+  <g class="streetgroup" tabindex="0" aria-label="Mainsail Drive">
+    <path class="street-hit" d="M 885,493 L 986,449 L 1093,402" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="250" height="58" />
+      <text class="street-text" x="44" y="53">Mainsail Drive</text>
     </g>
+  </g>
 
-    <g class="callout callout-yellow">
-      <line x1="500" y1="132" x2="543" y2="381" marker-end="url(#arrowHead)" />
-      <rect x="456" y="124" width="42" height="16" />
-      <text x="462" y="133">Canal Boat Lifts</text>
+  <g class="streetgroup" tabindex="0" aria-label="Pinnacle Drive">
+    <path class="street-hit" d="M 1000,545 L 1128,489" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="250" height="58" />
+      <text class="street-text" x="44" y="53">Pinnacle Drive</text>
     </g>
-  </svg>
+  </g>
 
-  <div class="legend">
-    <h3>Map legend</h3>
-    <div class="legend-item"><span class="dot red"></span> Inlets Preserve</div>
-    <div class="legend-item"><span class="dot orange"></span> Tennis Courts</div>
-    <div class="legend-item"><span class="dot yellow"></span> Canal Boat Lift</div>
-    <div class="legend-item"><span class="dot purple"></span> Inlets Community Boat Ramp</div>
-  </div>
+  <g class="streetgroup" tabindex="0" aria-label="5th Avenue Northeast">
+    <path class="street-hit" d="M 410,560 L 607,603" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="320" height="58" />
+      <text class="street-text" x="44" y="53">5th Avenue NE</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="36th Street Northeast">
+    <path class="street-hit" d="M 339,551 L 351,775" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="320" height="58" />
+      <text class="street-text" x="44" y="53">36th Street NE</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Blue Marlin Drive">
+    <path class="street-hit" d="M 676,820 L 825,894" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="320" height="58" />
+      <text class="street-text" x="44" y="53">Blue Marlin Drive</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Halyard Drive">
+    <path class="street-hit" d="M 846,749 L 961,794" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="250" height="58" />
+      <text class="street-text" x="44" y="53">Halyard Drive</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Compass Point">
+    <path class="street-hit" d="M 1033,709 L 1147,755" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="250" height="58" />
+      <text class="street-text" x="44" y="53">Compass Point</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Barracuda Drive">
+    <path class="street-hit" d="M 719,958 L 872,1036" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="280" height="58" />
+      <text class="street-text" x="44" y="53">Barracuda Drive</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Americas Cup Boulevard">
+    <path class="street-hit" d="M 1038,783 L 1043,1045" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="360" height="58" />
+      <text class="street-text" x="44" y="53">Americas Cup Blvd</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="48th Street Court Northeast">
+    <path class="street-hit" d="M 1191,171 L 1190,513" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="360" height="58" />
+      <text class="street-text" x="44" y="53">48th Street Court NE</text>
+    </g>
+  </g>
+
+  <g class="streetgroup" tabindex="0" aria-label="Route 64">
+    <path class="street-hit" d="M 144,1447 L 1100,1447" />
+    <g class="street-label">
+      <rect class="street-box" x="24" y="24" width="180" height="58" />
+      <text class="street-text" x="44" y="53">Route 64</text>
+    </g>
+  </g>
+
+  <!-- Inlets Preserve -->
+  <g id="inlets-preserve" aria-label="Inlets Preserve">
+    <polygon class="preserve" points="577,72 680,24 684,173 576,176 610,119" />
+    <g class="facility-label">
+      <rect x="548" y="38" width="150" height="32" />
+      <text x="560" y="54">Inlets Preserve</text>
+    </g>
+  </g>
+
+  <!-- Tennis Court -->
+  <g id="tennis-court" aria-label="Tennis Court">
+    <circle class="facility-dot" cx="678" cy="174" r="7" fill="#1e88e5" />
+    <g class="facility-label">
+      <rect x="536" y="154" width="138" height="32" />
+      <text x="548" y="170">Tennis Court</text>
+    </g>
+  </g>
+
+  <!-- Community Boat Ramp -->
+  <g id="boat-ramp" aria-label="Inlets Community Boat Ramp">
+    <circle class="facility-dot" cx="291" cy="689" r="7" fill="#ba68c8" />
+    <g class="facility-label">
+      <rect x="305" y="673" width="218" height="32" />
+      <text x="317" y="689">Inlets Community Boat Ramp</text>
+    </g>
+  </g>
+
+  <!-- Boat lifts from red-dot placement -->
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 1">
+    <circle class="lift-dot" cx="381" cy="193" r="6"/>
+    <path class="lift-icon" d="M 377,193 l 4,-8 l 4,8 M 375,193 h 12 M 381,193 v 8"/>
+    <g class="lift-label"><rect x="393" y="180" width="126" height="28"/><text x="403" y="195">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 2">
+    <circle class="lift-dot" cx="431" cy="227" r="6"/>
+    <path class="lift-icon" d="M 427,227 l 4,-8 l 4,8 M 425,227 h 12 M 431,227 v 8"/>
+    <g class="lift-label"><rect x="443" y="214" width="126" height="28"/><text x="453" y="229">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 3">
+    <circle class="lift-dot" cx="530" cy="291" r="6"/>
+    <path class="lift-icon" d="M 526,291 l 4,-8 l 4,8 M 524,291 h 12 M 530,291 v 8"/>
+    <g class="lift-label"><rect x="542" y="278" width="126" height="28"/><text x="552" y="293">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 4">
+    <circle class="lift-dot" cx="498" cy="359" r="6"/>
+    <path class="lift-icon" d="M 494,359 l 4,-8 l 4,8 M 492,359 h 12 M 498,359 v 8"/>
+    <g class="lift-label"><rect x="510" y="346" width="126" height="28"/><text x="520" y="361">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 5">
+    <circle class="lift-dot" cx="529" cy="393" r="6"/>
+    <path class="lift-icon" d="M 525,393 l 4,-8 l 4,8 M 523,393 h 12 M 529,393 v 8"/>
+    <g class="lift-label"><rect x="541" y="380" width="126" height="28"/><text x="551" y="395">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 6">
+    <circle class="lift-dot" cx="529" cy="417" r="6"/>
+    <path class="lift-icon" d="M 525,417 l 4,-8 l 4,8 M 523,417 h 12 M 529,417 v 8"/>
+    <g class="lift-label"><rect x="541" y="404" width="126" height="28"/><text x="551" y="419">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 7">
+    <circle class="lift-dot" cx="567" cy="467" r="6"/>
+    <path class="lift-icon" d="M 563,467 l 4,-8 l 4,8 M 561,467 h 12 M 567,467 v 8"/>
+    <g class="lift-label"><rect x="579" y="454" width="126" height="28"/><text x="589" y="469">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 8">
+    <circle class="lift-dot" cx="596" cy="552" r="6"/>
+    <path class="lift-icon" d="M 592,552 l 4,-8 l 4,8 M 590,552 h 12 M 596,552 v 8"/>
+    <g class="lift-label"><rect x="608" y="539" width="126" height="28"/><text x="618" y="554">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 9">
+    <circle class="lift-dot" cx="626" cy="629" r="6"/>
+    <path class="lift-icon" d="M 622,629 l 4,-8 l 4,8 M 620,629 h 12 M 626,629 v 8"/>
+    <g class="lift-label"><rect x="638" y="616" width="126" height="28"/><text x="648" y="631">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 10">
+    <circle class="lift-dot" cx="615" cy="720" r="6"/>
+    <path class="lift-icon" d="M 611,720 l 4,-8 l 4,8 M 609,720 h 12 M 615,720 v 8"/>
+    <g class="lift-label"><rect x="627" y="707" width="126" height="28"/><text x="637" y="722">Canal boat lift</text></g>
+  </g>
+
+  <g class="boatlift" tabindex="0" aria-label="Canal boat lift 11">
+    <circle class="lift-dot" cx="656" cy="810" r="6"/>
+    <path class="lift-icon" d="M 652,810 l 4,-8 l 4,8 M 650,810 h 12 M 656,810 v 8"/>
+    <g class="lift-label"><rect x="668" y="797" width="126" height="28"/><text x="678" y="812">Canal boat lift</text></g>
+  </g>
+</svg>
+
 </div>
-
-<script>
-  const pieces = document.querySelectorAll('.assoc-piece');
-  pieces.forEach(piece => {
-    piece.addEventListener('mouseenter', () => piece.classList.add('active'));
-    piece.addEventListener('mouseleave', () => piece.classList.remove('active'));
-  });
-</script>
 </body>
 </html>
