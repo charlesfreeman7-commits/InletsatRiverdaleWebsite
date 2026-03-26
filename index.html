@@ -4,21 +4,28 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Inlets at Riverdale Interactive Map</title>
-<style>
 html, body {
   margin: 0;
   padding: 0;
   background: #ffffff;
+  overflow: hidden;
 }
+
 .wrap {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+
 svg {
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 96vh;
+  max-width: 96vw;
+  max-height: 96vh;
 }
 
 /* Top-left street name box */
