@@ -42,11 +42,9 @@ svg {
 .streetgroup:focus-within .street-label {
   display: block;
 }
-
-/* 100% transparent hover boundary lines */
 .street-hit {
   fill: none;
-  stroke: rgba(31,122,77,0);
+  stroke: rgba(31,122,77,0.01);
   stroke-width: 16;
   vector-effect: non-scaling-stroke;
   stroke-linecap: round;
@@ -56,8 +54,8 @@ svg {
 }
 .streetgroup:hover .street-hit,
 .streetgroup:focus-within .street-hit {
-  stroke: rgba(31,122,77,0);
-  stroke-width: 16;
+  stroke: rgba(31,122,77,0.95);
+  stroke-width: 5;
 }
 
 /* Preserve */
@@ -117,35 +115,6 @@ svg {
   fill: white;
   font: 700 12px Arial, sans-serif;
   dominant-baseline: middle;
-}
-
-/* Association name shown under "Manatee River" */
-.association-label {
-  pointer-events: none;
-}
-.association-label text {
-  fill: #000000;
-  font: 700 18px Arial, sans-serif;
-  text-anchor: middle;
-}
-.hover-zone {
-  fill: rgba(255,255,255,0);
-  stroke: rgba(255,255,255,0);
-  stroke-width: 2;
-  pointer-events: all;
-}
-.zone-name {
-  display: none;
-}
-#zone-master:hover ~ .association-label #label-master,
-#zone-master:focus-within ~ .association-label #label-master,
-#zone-harbourwalk:hover ~ .association-label #label-harbourwalk,
-#zone-harbourwalk:focus-within ~ .association-label #label-harbourwalk,
-#zone-preserve:hover ~ .association-label #label-preserve,
-#zone-preserve:focus-within ~ .association-label #label-preserve,
-#zone-tidewater:hover ~ .association-label #label-tidewater,
-#zone-tidewater:focus-within ~ .association-label #label-tidewater {
-  display: block;
 }
 </style>
 </head>
@@ -281,7 +250,7 @@ svg {
   <g id="inlets-preserve" aria-label="Inlets Preserve">
     <polygon class="preserve" points="577,72 680,24 684,173 576,176 610,119" />
     <g class="facility-label">
-      <rect x="544" y="38" width="165" height="32" />
+      <rect x="548" y="38" width="150" height="32" />
       <text x="560" y="54">Inlets Preserve</text>
     </g>
   </g>
@@ -290,7 +259,7 @@ svg {
   <g id="tennis-court" aria-label="Tennis Court">
     <circle class="facility-dot" cx="678" cy="174" r="7" fill="#1e88e5" />
     <g class="facility-label">
-      <rect x="536" y="154" width="150" height="32" />
+      <rect x="536" y="154" width="138" height="32" />
       <text x="548" y="170">Tennis Court</text>
     </g>
   </g>
@@ -299,7 +268,7 @@ svg {
   <g id="boat-ramp" aria-label="Inlets Community Boat Ramp">
     <circle class="facility-dot" cx="291" cy="689" r="7" fill="#ba68c8" />
     <g class="facility-label">
-      <rect x="305" y="673" width="255" height="32" />
+      <rect x="305" y="673" width="218" height="32" />
       <text x="317" y="689">Inlets Community Boat Ramp</text>
     </g>
   </g>
@@ -308,92 +277,67 @@ svg {
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 1">
     <circle class="lift-dot" cx="381" cy="193" r="6"/>
     <path class="lift-icon" d="M 377,193 l 4,-8 l 4,8 M 375,193 h 12 M 381,193 v 8"/>
-    <g class="lift-label"><rect x="393" y="180" width="138" height="28"/><text x="403" y="195">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="393" y="180" width="126" height="28"/><text x="403" y="195">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 2">
     <circle class="lift-dot" cx="431" cy="227" r="6"/>
     <path class="lift-icon" d="M 427,227 l 4,-8 l 4,8 M 425,227 h 12 M 431,227 v 8"/>
-    <g class="lift-label"><rect x="443" y="214" width="138" height="28"/><text x="453" y="229">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="443" y="214" width="126" height="28"/><text x="453" y="229">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 3">
     <circle class="lift-dot" cx="530" cy="291" r="6"/>
     <path class="lift-icon" d="M 526,291 l 4,-8 l 4,8 M 524,291 h 12 M 530,291 v 8"/>
-    <g class="lift-label"><rect x="542" y="278" width="138" height="28"/><text x="552" y="293">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="542" y="278" width="126" height="28"/><text x="552" y="293">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 4">
     <circle class="lift-dot" cx="498" cy="359" r="6"/>
     <path class="lift-icon" d="M 494,359 l 4,-8 l 4,8 M 492,359 h 12 M 498,359 v 8"/>
-    <g class="lift-label"><rect x="510" y="346" width="138" height="28"/><text x="520" y="361">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="510" y="346" width="126" height="28"/><text x="520" y="361">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 5">
     <circle class="lift-dot" cx="529" cy="393" r="6"/>
     <path class="lift-icon" d="M 525,393 l 4,-8 l 4,8 M 523,393 h 12 M 529,393 v 8"/>
-    <g class="lift-label"><rect x="541" y="380" width="138" height="28"/><text x="551" y="395">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="541" y="380" width="126" height="28"/><text x="551" y="395">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 6">
     <circle class="lift-dot" cx="529" cy="417" r="6"/>
     <path class="lift-icon" d="M 525,417 l 4,-8 l 4,8 M 523,417 h 12 M 529,417 v 8"/>
-    <g class="lift-label"><rect x="541" y="404" width="138" height="28"/><text x="551" y="419">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="541" y="404" width="126" height="28"/><text x="551" y="419">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 7">
     <circle class="lift-dot" cx="567" cy="467" r="6"/>
     <path class="lift-icon" d="M 563,467 l 4,-8 l 4,8 M 561,467 h 12 M 567,467 v 8"/>
-    <g class="lift-label"><rect x="579" y="454" width="138" height="28"/><text x="589" y="469">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="579" y="454" width="126" height="28"/><text x="589" y="469">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 8">
     <circle class="lift-dot" cx="596" cy="552" r="6"/>
     <path class="lift-icon" d="M 592,552 l 4,-8 l 4,8 M 590,552 h 12 M 596,552 v 8"/>
-    <g class="lift-label"><rect x="608" y="539" width="138" height="28"/><text x="618" y="554">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="608" y="539" width="126" height="28"/><text x="618" y="554">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 9">
     <circle class="lift-dot" cx="626" cy="629" r="6"/>
     <path class="lift-icon" d="M 622,629 l 4,-8 l 4,8 M 620,629 h 12 M 626,629 v 8"/>
-    <g class="lift-label"><rect x="638" y="616" width="138" height="28"/><text x="648" y="631">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="638" y="616" width="126" height="28"/><text x="648" y="631">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 10">
     <circle class="lift-dot" cx="615" cy="720" r="6"/>
     <path class="lift-icon" d="M 611,720 l 4,-8 l 4,8 M 609,720 h 12 M 615,720 v 8"/>
-    <g class="lift-label"><rect x="627" y="707" width="138" height="28"/><text x="637" y="722">Canal boat lift</text></g>
+    <g class="lift-label"><rect x="627" y="707" width="126" height="28"/><text x="637" y="722">Canal boat lift</text></g>
   </g>
 
   <g class="boatlift" tabindex="0" aria-label="Canal boat lift 11">
     <circle class="lift-dot" cx="656" cy="810" r="6"/>
     <path class="lift-icon" d="M 652,810 l 4,-8 l 4,8 M 650,810 h 12 M 656,810 v 8"/>
-    <g class="lift-label"><rect x="668" y="797" width="138" height="28"/><text x="678" y="812">Canal boat lift</text></g>
-  </g>
-
-  <!-- Hover zones for association name display -->
-  <g id="zone-master" tabindex="0" aria-label="Inlets at Riverdale Master Association">
-    <rect class="hover-zone" x="250" y="120" width="980" height="1080" />
-  </g>
-
-  <g id="zone-harbourwalk" tabindex="0" aria-label="Harbour Walk HOA">
-    <rect class="hover-zone" x="1010" y="140" width="270" height="430" />
-  </g>
-
-  <g id="zone-preserve" tabindex="0" aria-label="Inlets Preserve Association">
-    <rect class="hover-zone" x="520" y="20" width="220" height="180" />
-  </g>
-
-  <g id="zone-tidewater" tabindex="0" aria-label="Tidewater HOA">
-    <rect class="hover-zone" x="620" y="820" width="520" height="320" />
-  </g>
-
-  <!-- Association label below Manatee River -->
-  <g class="association-label" aria-hidden="true">
-    <text id="label-master" class="zone-name" x="1030" y="116">Inlets at Riverdale Master Association</text>
-    <text id="label-harbourwalk" class="zone-name" x="1030" y="116">Harbour Walk HOA</text>
-    <text id="label-preserve" class="zone-name" x="1030" y="116">Inlets Preserve Association</text>
-    <text id="label-tidewater" class="zone-name" x="1030" y="116">Tidewater HOA</text>
+    <g class="lift-label"><rect x="668" y="797" width="126" height="28"/><text x="678" y="812">Canal boat lift</text></g>
   </g>
 </svg>
 
