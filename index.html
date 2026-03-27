@@ -26,8 +26,8 @@ html, body {
 
 svg {
   display: block;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   max-width: 100vw;
   max-height: 100vh;
 }
@@ -61,18 +61,12 @@ svg {
 .street-hit {
   fill: none;
   stroke: rgba(31,122,77,0);
-  stroke-width: 16;
+  stroke-width: 20;
   vector-effect: non-scaling-stroke;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: stroke;
   cursor: pointer;
-}
-
-.streetgroup:hover .street-hit,
-.streetgroup:focus-within .street-hit {
-  stroke: rgba(31,122,77,0);
-  stroke-width: 16;
 }
 
 /* Hide any old overlay-made shapes */
@@ -84,11 +78,11 @@ svg {
   display: none;
 }
 
-/* Transparent hover targets placed over PNG dots */
+/* Larger transparent hover targets placed over PNG dots */
 .hover-dot {
   fill: rgba(255,255,255,0);
   stroke: rgba(255,255,255,0);
-  stroke-width: 18;
+  stroke-width: 34;
   pointer-events: all;
   cursor: pointer;
 }
@@ -260,128 +254,128 @@ svg {
     </g>
   </g>
 
-  <!-- Hover targets centered exactly on PNG dots -->
+  <!-- Hover targets with labels centered exactly on PNG dots -->
 
-  <!-- Inlets Preserve dot: cx 1458 cy 811 -->
+  <!-- Inlets Preserve dot -->
   <g class="hover-target" tabindex="0" aria-label="Inlets Preserve">
-    <circle class="hover-dot" cx="1458" cy="811" r="18" />
+    <circle class="hover-dot" cx="1458" cy="811" r="28" />
     <g class="hover-label facility-label">
       <rect x="1388" y="795" width="140" height="32" />
       <text x="1400" y="811">Inlets Preserve</text>
     </g>
   </g>
 
-  <!-- Tennis Courts dot: cx 1488 cy 908 -->
+  <!-- Tennis Courts dot -->
   <g class="hover-target" tabindex="0" aria-label="Tennis Courts">
-    <circle class="hover-dot" cx="1488" cy="908" r="18" />
+    <circle class="hover-dot" cx="1488" cy="908" r="28" />
     <g class="hover-label facility-label">
       <rect x="1421" y="892" width="134" height="32" />
       <text x="1433" y="908">Tennis Courts</text>
     </g>
   </g>
 
-  <!-- Inlets Boatramp dot: cx 1013 cy 1317 -->
+  <!-- Inlets Boatramp dot -->
   <g class="hover-target" tabindex="0" aria-label="Inlets Boatramp">
-    <circle class="hover-dot" cx="1013" cy="1317" r="18" />
+    <circle class="hover-dot" cx="1013" cy="1317" r="28" />
     <g class="hover-label facility-label">
       <rect x="934" y="1301" width="158" height="32" />
       <text x="946" y="1317">Inlets Boatramp</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 1 dot: cx 1069 cy 907 -->
+  <!-- Canal Boatlift 1 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1069" cy="907" r="18" />
+    <circle class="hover-dot" cx="1069" cy="907" r="28" />
     <g class="hover-label lift-label">
       <rect x="1010" y="893" width="118" height="28" />
       <text x="1020" y="907">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 2 dot: cx 1020 cy 1005 -->
+  <!-- Canal Boatlift 2 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1020" cy="1005" r="18" />
+    <circle class="hover-dot" cx="1020" cy="1005" r="28" />
     <g class="hover-label lift-label">
       <rect x="961" y="991" width="118" height="28" />
       <text x="971" y="1005">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 3 dot: cx 1112 cy 1078 -->
+  <!-- Canal Boatlift 3 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1112" cy="1078" r="18" />
+    <circle class="hover-dot" cx="1112" cy="1078" r="28" />
     <g class="hover-label lift-label">
       <rect x="1053" y="1064" width="118" height="28" />
       <text x="1063" y="1078">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 4 dot: cx 1153 cy 1158 -->
+  <!-- Canal Boatlift 4 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1153" cy="1158" r="18" />
+    <circle class="hover-dot" cx="1153" cy="1158" r="28" />
     <g class="hover-label lift-label">
       <rect x="1094" y="1144" width="118" height="28" />
       <text x="1104" y="1158">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 5 dot: cx 1189 cy 1224 -->
+  <!-- Canal Boatlift 5 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1189" cy="1224" r="18" />
+    <circle class="hover-dot" cx="1189" cy="1224" r="28" />
     <g class="hover-label lift-label">
       <rect x="1130" y="1210" width="118" height="28" />
       <text x="1140" y="1224">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 6 dot: cx 1221 cy 1143 -->
+  <!-- Canal Boatlift 6 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1221" cy="1143" r="18" />
+    <circle class="hover-dot" cx="1221" cy="1143" r="28" />
     <g class="hover-label lift-label">
       <rect x="1162" y="1129" width="118" height="28" />
       <text x="1172" y="1143">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 7 dot: cx 1258 cy 1284 -->
+  <!-- Canal Boatlift 7 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1258" cy="1284" r="18" />
+    <circle class="hover-dot" cx="1258" cy="1284" r="28" />
     <g class="hover-label lift-label">
       <rect x="1199" y="1270" width="118" height="28" />
       <text x="1209" y="1284">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 8 dot: cx 1321 cy 1142 -->
+  <!-- Canal Boatlift 8 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1321" cy="1142" r="18" />
+    <circle class="hover-dot" cx="1321" cy="1142" r="28" />
     <g class="hover-label lift-label">
       <rect x="1262" y="1128" width="118" height="28" />
       <text x="1272" y="1142">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 9 dot: cx 1338 cy 1233 -->
+  <!-- Canal Boatlift 9 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1338" cy="1233" r="18" />
+    <circle class="hover-dot" cx="1338" cy="1233" r="28" />
     <g class="hover-label lift-label">
       <rect x="1279" y="1219" width="118" height="28" />
       <text x="1289" y="1233">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 10 dot: cx 1398 cy 1326 -->
+  <!-- Canal Boatlift 10 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1398" cy="1326" r="18" />
+    <circle class="hover-dot" cx="1398" cy="1326" r="28" />
     <g class="hover-label lift-label">
       <rect x="1339" y="1312" width="118" height="28" />
       <text x="1349" y="1326">Canal Boatlift</text>
     </g>
   </g>
 
-  <!-- Canal Boatlift 11 dot: cx 1454 cy 1450 -->
+  <!-- Canal Boatlift 11 -->
   <g class="hover-target" tabindex="0" aria-label="Canal Boatlift">
-    <circle class="hover-dot" cx="1454" cy="1450" r="18" />
+    <circle class="hover-dot" cx="1454" cy="1450" r="28" />
     <g class="hover-label lift-label">
       <rect x="1395" y="1436" width="118" height="28" />
       <text x="1405" y="1450">Canal Boatlift</text>
