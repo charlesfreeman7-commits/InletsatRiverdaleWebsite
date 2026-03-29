@@ -77,22 +77,22 @@
 
     <div id="svgHost"></div>
 
-<div id="label-harbour-walk-the-reserve" class="hover-label" style="left: 55%; top: 22%;">
-  Harbour Walk The Reserve
-</div>
+    <div id="label-harbour-walk-the-reserve" class="hover-label" style="left: 55%; top: 22%;">
+      Harbour Walk The Reserve
+    </div>
 
-<div id="label-harbour-walk" class="hover-label" style="left: 63%; top: 30%;">
-  Harbour Walk
-</div>
+    <div id="label-harbour-walk" class="hover-label" style="left: 63%; top: 30%;">
+      Harbour Walk
+    </div>
   </div>
 
   <script>
     const SVG_FILE = 'InletsMapNearFinal.svg';
 
     const hoverMap = {
-  'harbour-walk-the-reserve': 'label-harbour-walk-the-reserve',
-  'harbour-walk': 'label-harbour-walk'
-};
+      'harbour-walk-the-reserve': 'label-harbour-walk-the-reserve',
+      'path1': 'label-harbour-walk'
+    };
 
     const svgHost = document.getElementById('svgHost');
 
@@ -108,6 +108,8 @@
       node.style.pointerEvents = 'all';
       node.style.cursor = 'pointer';
       node.style.fill = 'rgba(0,0,0,0)';
+      node.style.fillOpacity = '1';
+      node.style.stroke = 'none';
       node.style.transition = 'fill 0.15s ease';
     }
 
@@ -128,11 +130,13 @@
           prep(el);
 
           el.addEventListener('mouseenter', () => {
+            el.style.fillOpacity = '1';
             el.style.fill = 'rgba(52,106,185,0.25)';
             showLabel(label);
           });
 
           el.addEventListener('mouseleave', () => {
+            el.style.fillOpacity = '1';
             el.style.fill = 'rgba(0,0,0,0)';
             hideLabel(label);
           });
