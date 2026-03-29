@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inlets at Riverdale Bradenton Interactive Map</title>
+  <title>Inlets Interactive Map</title>
 
   <style>
     * { box-sizing: border-box; }
@@ -52,6 +52,19 @@
     .hover-label.show {
       opacity: 1;
     }
+
+    /* Hover colors */
+    .inlets-neighborhood-hover {
+      fill: rgba(173, 216, 230, 0.5); /* Light blue */
+    }
+
+    .harbour-walk-hover {
+      fill: rgba(144, 238, 144, 0.5); /* Light green */
+    }
+
+    .harbour-walk-the-reserve-hover {
+      fill: rgba(255, 255, 204, 0.5); /* Light yellow */
+    }
   </style>
 </head>
 
@@ -59,17 +72,9 @@
   <div class="page">
     <div id="svgHost"></div>
 
-    <div id="label-harbour-walk-the-reserve" class="hover-label" style="left: 55%; top: 22%;">
-      Harbour Walk The Reserve
-    </div>
-
-    <div id="label-harbour-walk" class="hover-label" style="left: 63%; top: 30%;">
-      Harbour Walk
-    </div>
-
-    <div id="inlets-neighborhood" class="hover-label" style="left: 48%; top: 38%;">
-      Inlets Neighborhood
-    </div>
+    <div id="label-harbour-walk-the-reserve" class="hover-label" style="left: 55%; top: 22%;">Harbour Walk The Reserve</div>
+    <div id="label-harbour-walk" class="hover-label" style="left: 63%; top: 30%;">Harbour Walk</div>
+    <div id="inlets-neighborhood" class="hover-label" style="left: 48%; top: 38%;">Inlets Neighborhood</div>
   </div>
 
   <script>
@@ -91,13 +96,11 @@
       document.getElementById(id)?.classList.remove('show');
     }
 
-    function prep(node) {
+    function prep(node, hoverClass) {
       node.style.pointerEvents = 'all';
       node.style.cursor = 'pointer';
-      node.style.fill = 'rgba(0,0,0,0)';
-      node.style.fillOpacity = '1';
-      node.style.stroke = 'none';
       node.style.transition = 'fill 0.15s ease';
+      node.classList.add(hoverClass); // Add class for hover color change
     }
 
     fetch(SVG_FILE)
@@ -114,17 +117,26 @@
             return;
           }
 
-          prep(el);
+          let hoverClass;
+          switch (id) {
+            case 'inlets-neighborhood':
+              hoverClass = 'inlets-neighborhood-hover';
+              break;
+            case 'harbour-walk':
+              hoverClass = 'harbour-walk-hover';
+              break;
+            case 'harbour-walk-the-reserve':
+              hoverClass = 'harbour-walk-the-reserve-hover';
+              break;
+          }
+
+          prep(el, hoverClass);
 
           el.addEventListener('mouseenter', () => {
-            el.style.fillOpacity = '1';
-            el.style.fill = 'rgba(52,106,185,0.25)';
             showLabel(label);
           });
 
           el.addEventListener('mouseleave', () => {
-            el.style.fillOpacity = '1';
-            el.style.fill = 'rgba(0,0,0,0)';
             hideLabel(label);
           });
         });
