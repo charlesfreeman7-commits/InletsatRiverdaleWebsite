@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inlets at Riverdale Interactive Map</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+  }
+
+  .legend-box,
+  .street-box,
+  .label-box,
+  .lift-label {
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.30));
+  }
+
+  .overlay-panel rect {
+    fill: rgba(16, 32, 56, 0.82);
+    stroke: rgba(255,255,255,0.65);
+    stroke-width: 1.2;
+    rx: 10;
+    ry: 10;
+  }
+
+  .overlay-title {
+    fill: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .overlay-text {
+    fill: #f7f7f7;
+    font-size: 14px;
+  }
+
+  .overlay-small {
+    fill: #dbe7ff;
+    font-size: 12px;
+  }
+
+  .facility-dot,
+  .lift-dot {
+    stroke: #ffffff;
+    stroke-width: 2;
+  }
+
+  .preserve-dot { fill: #8b0000; }
+  .tennis-dot { fill: #ff7f27; }
+  .lift-dot { fill: #ffea00; }
+  .ramp-dot { fill: #a349a4; }
+
+  .leader {
+    stroke: rgba(255,255,255,0.85);
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  .label-box rect {
+    fill: rgba(22, 107, 64, 0.92);
+    stroke: #ffffff;
+    stroke-width: 1.2;
+    rx: 8;
+    ry: 8;
+  }
+
+  .label-box text {
+    fill: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    dominant-baseline: middle;
+  }
+
+  .boatlift {
+    cursor: pointer;
+  }
+
+  .lift-label {
+    display: none;
+  }
+
+  .boatlift:hover .lift-label,
+  .boatlift:focus-within .lift-label {
+    display: block;
+  }
+
+  .lift-label rect {
+    fill: rgba(40, 40, 40, 0.92);
+    stroke: #ffffff;
+    stroke-width: 1;
+    rx: 6;
+    ry: 6;
+  }
+
+  .lift-label text {
+    fill: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!--
+  IMPORTANT
+  1) Put this file in the same GitHub folder as your revised PNG.
+  2) Keep the PNG filename as inlets_map.png or change the href below.
+  3) This version is matched to the revised PNG size: 794 x 602.
+  4) Street names are placed in the upper-left overlay for legibility.
+     Replace them with your preferred streets if you want different names.
+-->
+
+<svg viewBox="0 0 794 602" xmlns="http://www.w3.org/2000/svg" aria-label="Inlets at Riverdale Interactive Map">
+  <image href="inlets_map.png" x="0" y="0" width="794" height="602" />
+
+  <!-- Upper-left street highlight panel over water -->
+  <g class="overlay-panel street-box" transform="translate(22,22)">
+    <rect width="260" height="126"></rect>
+    <text x="14" y="26" class="overlay-title">Street Highlights</text>
+    <text x="14" y="50" class="overlay-text">• Tidewater Preserve Blvd</text>
+    <text x="14" y="70" class="overlay-text">• Inlets Blvd / main canal spine</text>
+    <text x="14" y="90" class="overlay-text">• Boat-lift streets by canal shown</text>
+    <text x="14" y="112" class="overlay-small">Edit these lines to match your preferred street names.</text>
+  </g>
+
+  <!-- Legend in upper-left below streets -->
+  <g class="overlay-panel legend-box" transform="translate(22,160)">
+    <rect width="264" height="124"></rect>
+    <text x="14" y="26" class="overlay-title">Map Legend</text>
+
+    <circle cx="22" cy="50" r="6" class="facility-dot preserve-dot"></circle>
+    <text x="38" y="55" class="overlay-text">Inlets Preserve</text>
+
+    <circle cx="22" cy="74" r="6" class="facility-dot tennis-dot"></circle>
+    <text x="38" y="79" class="overlay-text">Tennis Courts</text>
+
+    <circle cx="22" cy="98" r="6" class="lift-dot"></circle>
+    <text x="38" y="103" class="overlay-text">Canal Boat Lift</text>
+
+    <circle cx="22" cy="122" r="6" class="facility-dot ramp-dot"></circle>
+    <text x="38" y="127" class="overlay-text">Inlets Community Boat Ramp</text>
+  </g>
+
+  <!-- Facility labels -->
+  <path class="leader" d="M 610 60 L 694 159" />
+  <g class="label-box" transform="translate(465,34)">
+    <rect width="148" height="28"></rect>
+    <text x="12" y="15">Inlets Preserve</text>
+  </g>
+
+  <path class="leader" d="M 632 96 L 709 196" />
+  <g class="label-box" transform="translate(498,70)">
+    <rect width="134" height="28"></rect>
+    <text x="12" y="15">Tennis Courts</text>
+  </g>
+
+  <path class="leader" d="M 525 448 L 485 410" />
+  <g class="label-box" transform="translate(525,438)">
+    <rect width="214" height="28"></rect>
+    <text x="12" y="15">Inlets Community Boat Ramp</text>
+  </g>
+
+  <!-- Facility dots mapped to revised PNG -->
+  <circle class="facility-dot preserve-dot" cx="694" cy="159" r="6" />
+  <circle class="facility-dot tennis-dot" cx="709" cy="196" r="6" />
+  <circle class="facility-dot ramp-dot" cx="485" cy="410" r="6" />
+
+  <!-- Canal boat lifts -->
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="521" cy="178" r="6" />
+    <g class="lift-label" transform="translate(533,164)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 1</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="509" cy="228" r="6" />
+    <g class="lift-label" transform="translate(521,214)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 2</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="553" cy="268" r="6" />
+    <g class="lift-label" transform="translate(565,254)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 3</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="579" cy="292" r="6" />
+    <g class="lift-label" transform="translate(591,278)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 4</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="563" cy="305" r="6" />
+    <g class="lift-label" transform="translate(575,291)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 5</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="601" cy="319" r="6" />
+    <g class="lift-label" transform="translate(613,305)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 6</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="583" cy="334" r="6" />
+    <g class="lift-label" transform="translate(595,320)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 7</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="617" cy="350" r="6" />
+    <g class="lift-label" transform="translate(629,336)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 8</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="635" cy="378" r="6" />
+    <g class="lift-label" transform="translate(647,364)">
+      <rect width="112" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 9</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="648" cy="408" r="6" />
+    <g class="lift-label" transform="translate(660,394)">
+      <rect width="120" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 10</text>
+    </g>
+  </g>
+
+  <g class="boatlift" tabindex="0">
+    <circle class="lift-dot" cx="656" cy="443" r="6" />
+    <g class="lift-label" transform="translate(628,456)">
+      <rect width="120" height="24"></rect>
+      <text x="9" y="16">Canal Boat Lift 11</text>
+    </g>
+  </g>
+</svg>
+</div>
+</body>
+</html>
