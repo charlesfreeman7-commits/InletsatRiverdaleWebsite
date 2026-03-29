@@ -55,15 +55,15 @@
 
     /* Hover colors */
     .inlets-neighborhood-hover {
-      fill: rgba(173, 216, 230, 0.5); /* Light blue */
+      fill: rgba(173, 216, 230, 0.5); /* Light Blue */
     }
 
     .harbour-walk-hover {
-      fill: rgba(144, 238, 144, 0.5); /* Light green */
+      fill: rgba(144, 238, 144, 0.5); /* Light Green */
     }
 
     .harbour-walk-the-reserve-hover {
-      fill: rgba(255, 255, 204, 0.5); /* Light yellow */
+      fill: rgba(255, 255, 204, 0.5); /* Light Yellow */
     }
   </style>
 </head>
@@ -110,10 +110,11 @@
 
         const svg = svgHost.querySelector('svg');
 
+        // Ensure the elements exist and apply the hover effect
         Object.entries(hoverMap).forEach(([id, label]) => {
           const el = svg.querySelector(`#${CSS.escape(id)}`);
           if (!el) {
-            console.warn('Missing ID:', id);
+            console.warn('Missing ID:', id); // Log a warning if the ID doesn't exist
             return;
           }
 
@@ -133,10 +134,22 @@
           prep(el, hoverClass);
 
           el.addEventListener('mouseenter', () => {
+            switch (id) {
+              case 'inlets-neighborhood':
+                el.style.fill = 'rgba(173, 216, 230, 0.5)'; // Light Blue
+                break;
+              case 'harbour-walk':
+                el.style.fill = 'rgba(144, 238, 144, 0.5)'; // Light Green
+                break;
+              case 'harbour-walk-the-reserve':
+                el.style.fill = 'rgba(255, 255, 204, 0.5)'; // Light Yellow
+                break;
+            }
             showLabel(label);
           });
 
           el.addEventListener('mouseleave', () => {
+            el.style.fill = 'rgba(0,0,0,0)'; // Reset hover color
             hideLabel(label);
           });
         });
