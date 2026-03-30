@@ -52,19 +52,6 @@
     .hover-label.show {
       opacity: 1;
     }
-
-    /* Hover colors */
-    .inlets-neighborhood-hover {
-      fill: rgba(173, 216, 230, 0.5); /* Light Blue */
-    }
-
-    .harbour-walk-hover {
-      fill: rgba(144, 238, 144, 0.5); /* Light Green */
-    }
-
-    .harbour-walk-the-reserve-hover {
-      fill: rgba(255, 255, 204, 0.5); /* Light Yellow */
-    }
   </style>
 </head>
 
@@ -86,6 +73,14 @@
       'inlets-neighborhood': 'inlets-neighborhood'
     };
 
+    const hoverColors = {
+      'inlets-neighborhood': 'rgba(173, 216, 230, 0.6)',     // Light Blue
+      'harbour-walk': 'rgba(144, 238, 144, 0.6)',            // Light Green
+      'harbour-walk-the-reserve': 'rgba(255, 255, 204, 0.6)' // Light Yellow
+    };
+
+    const originalFills = {}; // Store original fill values
+
     const svgHost = document.getElementById('svgHost');
 
     function showLabel(id) {
@@ -96,13 +91,6 @@
       document.getElementById(id)?.classList.remove('show');
     }
 
-    function prep(node, hoverClass) {
-      node.style.pointerEvents = 'all';
-      node.style.cursor = 'pointer';
-      node.style.transition = 'fill 0.15s ease';
-      node.classList.add(hoverClass); // Add class for hover color change
-    }
-
     fetch(SVG_FILE)
       .then(res => res.text())
       .then(svgText => {
@@ -110,50 +98,46 @@
 
         const svg = svgHost.querySelector('svg');
 
-        // Ensure the elements exist and apply the hover effect
         Object.entries(hoverMap).forEach(([id, label]) => {
           const el = svg.querySelector(`#${CSS.escape(id)}`);
+          
           if (!el) {
-            console.warn('Missing ID:', id); // Log a warning if the ID doesn't exist
+            console.warn('Missing element with ID:', id);
             return;
           }
 
-          let hoverClass;
-          switch (id) {
-            case 'inlets-neighborhood':
-              hoverClass = 'inlets-neighborhood-hover';
-              break;
-            case 'harbour-walk':
-              hoverClass = 'harbour-walk-hover';
-              break;
-            case 'harbour-walk-the-reserve':
-              hoverClass = 'harbour-walk-the-reserve-hover';
-              break;
-          }
+          console.log('Found element:', id);
 
-          prep(el, hoverClass);
+          // Store original fill
+          originalFills[id] = el.getAttribute('fill') || 'transparent';
 
-          el.addEventListener('mouseenter', () => {
-            switch (id) {
-              case 'inlets-neighborhood':
-                el.style.fill = 'rgba(173, 216, 230, 0.5)'; // Light Blue
-                break;
-              case 'harbour-walk':
-                el.style.fill = 'rgba(144, 238, 144, 0.5)'; // Light Green
-                break;
-              case 'harbour-walk-the-reserve':
-                el.style.fill = 'rgba(255, 255, 204, 0.5)'; // Light Yellow
-                break;
-            }
+          // Make the path interactive
+          el.style.pointerEvents = 'auto';
+          el.style.cursor = 'pointer';
+          el.style.transition = 'fill 0.15s ease';
+
+          // Set visible transparent fill so it's clickable
+          el.setAttribute('fill', 'rgba(0, 0, 0, 0)');
+          
+          // Ensure stroke is visible for hover feedback
+          const strokeWidth = el.getAttribute('stroke-width') || '0.264583';
+          el.setAttribute('stroke', 'rgba(200, 200, 200, 0.3)');
+          el.setAttribute('stroke-width', strokeWidth);
+
+          el.addEventListener('mouseenter', (e) => {
+            console.log('Hovered:', id);
+            el.setAttribute('fill', hoverColors[id]);
             showLabel(label);
           });
 
-          el.addEventListener('mouseleave', () => {
-            el.style.fill = 'rgba(0,0,0,0)'; // Reset hover color
+          el.addEventListener('mouseleave', (e) => {
+            console.log('Left:', id);
+            el.setAttribute('fill', 'rgba(0, 0, 0, 0)');
             hideLabel(label);
           });
         });
-      });
+      })
+      .catch(err => console.error('Error loading SVG:', err));
   </script>
 </body>
 </html>
