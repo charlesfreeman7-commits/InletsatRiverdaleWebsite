@@ -52,31 +52,6 @@
     .hover-label.show {
       opacity: 1;
     }
-
-    /* SVG path styles */
-    #inlets-neighborhood {
-      transition: opacity 0.15s ease;
-    }
-
-    #inlets-neighborhood:hover {
-      opacity: 0.7;
-    }
-
-    #harbour-walk {
-      transition: opacity 0.15s ease;
-    }
-
-    #harbour-walk:hover {
-      opacity: 0.7;
-    }
-
-    #harbour-walk-the-reserve {
-      transition: opacity 0.15s ease;
-    }
-
-    #harbour-walk-the-reserve:hover {
-      opacity: 0.7;
-    }
   </style>
 </head>
 
@@ -84,28 +59,30 @@
   <div class="page">
     <div id="svgHost"></div>
 
-    <div id="harbour-walk-the-reserve" class="hover-label" style="left: 55%; top: 22%;">Harbour Walk The Reserve</div>
-    <div id="harbour-walk" class="hover-label" style="left: 63%; top: 30%;">Harbour Walk</div>
-    <div id="inlets-neighborhood" class="hover-label" style="left: 48%; top: 38%;">Inlets Neighborhood</div>
+    <div id="harbour-walk-the-reserve-label" class="hover-label" style="left: 55%; top: 22%;">Harbour Walk The Reserve</div>
+    <div id="harbour-walk-label" class="hover-label" style="left: 63%; top: 30%;">Harbour Walk</div>
+    <div id="inlets-neighborhood-label" class="hover-label" style="left: 48%; top: 38%;">Inlets Neighborhood</div>
   </div>
 
   <script>
     const SVG_FILE = 'inlets-map-near-final.svg';
 
     const hoverMap = {
-      'inlets-neighborhood': 'inlets-neighborhood',
-      'harbour-walk': 'harbour-walk',
-      'harbour-walk-the-reserve': 'harbour-walk-the-reserve'
+      'inlets-neighborhood': 'inlets-neighborhood-label',
+      'harbour-walk': 'harbour-walk-label',
+      'harbour-walk-the-reserve': 'harbour-walk-the-reserve-label'
     };
 
     const svgHost = document.getElementById('svgHost');
 
     function showLabel(id) {
-      document.getElementById(id)?.classList.add('show');
+      const label = document.getElementById(id);
+      if (label) label.classList.add('show');
     }
 
     function hideLabel(id) {
-      document.getElementById(id)?.classList.remove('show');
+      const label = document.getElementById(id);
+      if (label) label.classList.remove('show');
     }
 
     fetch(SVG_FILE)
@@ -116,27 +93,31 @@
         const svg = svgHost.querySelector('svg');
 
         // Ensure the elements exist and apply the hover effect
-        Object.entries(hoverMap).forEach(([id, label]) => {
+        Object.entries(hoverMap).forEach(([id, labelId]) => {
           const el = svg.querySelector(`#${CSS.escape(id)}`);
           if (!el) {
             console.warn('Missing ID:', id);
             return;
           }
 
+          // Make the element interactive
           el.style.pointerEvents = 'all';
           el.style.cursor = 'pointer';
-
+          
+          // Increase opacity for visibility on hover
           el.addEventListener('mouseenter', () => {
-            el.style.opacity = '0.7';
-            showLabel(label);
+            el.style.fillOpacity = '0.5';
+            showLabel(labelId);
           });
 
           el.addEventListener('mouseleave', () => {
-            el.style.opacity = '1';
-            hideLabel(label);
+            // Reset to original opacity from SVG
+            el.style.fillOpacity = '';
+            hideLabel(labelId);
           });
         });
-      });
+      })
+      .catch(err => console.error('Error loading SVG:', err));
   </script>
 </body>
 </html>
