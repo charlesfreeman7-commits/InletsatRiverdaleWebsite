@@ -60,24 +60,37 @@
 
       areas.forEach(area => {
         const el = svgDoc.getElementById(area.id);
+
         if (!el) {
           console.log("Missing SVG area:", area.id);
           return;
         }
 
+        console.log("Found SVG area:", area.id);
+
         el.style.cursor = "pointer";
-        el.style.fill = "rgba(0, 102, 204, 0.18)";
-        el.style.stroke = "rgba(0, 102, 204, 0.65)";
+
+        // make the area lightly visible at rest
+        el.style.fill = "#0066cc";
+        el.style.fillOpacity = "0.18";
+        el.style.stroke = "#0066cc";
+        el.style.strokeOpacity = "0.65";
         el.style.strokeWidth = "1";
 
         el.addEventListener("mouseover", () => {
-          el.style.fill = "rgba(255, 140, 0, 0.28)";
-          el.style.stroke = "rgba(255, 140, 0, 0.95)";
+          el.style.fill = "#ff8c00";
+          el.style.fillOpacity = "0.28";
+          el.style.stroke = "#ff8c00";
+          el.style.strokeOpacity = "0.95";
+          el.style.strokeWidth = "1.5";
         });
 
         el.addEventListener("mouseout", () => {
-          el.style.fill = "rgba(0, 102, 204, 0.18)";
-          el.style.stroke = "rgba(0, 102, 204, 0.65)";
+          el.style.fill = "#0066cc";
+          el.style.fillOpacity = "0.18";
+          el.style.stroke = "#0066cc";
+          el.style.strokeOpacity = "0.65";
+          el.style.strokeWidth = "1";
         });
 
         el.addEventListener("click", () => {
