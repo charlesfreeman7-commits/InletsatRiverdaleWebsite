@@ -10,28 +10,36 @@
         .hoverable {
             cursor: pointer;
         }
+        
+        /* Container for SVG to prepare for option 2 */
+        #map-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to Inlets at Riverdale</h1>
-    <!-- Link to your new SVG hosted on GitHub -->
-    <object data="https://charlesfreeman7-commits.github.io/InletsatRiverdaleWebsite/interactivefiles/inlets-map-near-final-google.svg" type=image/svg+xml" width="100%" height="800">
-        Your browser does not support SVG.
-    </object>
+    
+    <!-- Option 1: Using img tag (current - simple and works reliably) -->
+    <div id="map-container">
+        <img id="inlets-map" 
+             src="https://charlesfreeman7-commits.github.io/InletsatRiverdaleWebsite/interactivefiles/inlets-map-near-final-google.svg" 
+             alt="Inlets at Riverdale Map"
+             width="100%" 
+             height="800"
+             style="border: 1px solid #ccc;">
+    </div>
 
     <script>
-        // Example for hover effects (modify as per your new SVG)
-        const svg = document.querySelector('object');
-        svg.onload = function () {
-            const doc = svg.contentDocument;
-            const circle = doc.querySelector('.hoverable'); // Make sure you reference the correct element
-            circle.addEventListener('mouseover', () => {
-                circle.setAttribute('fill', 'green');
-            });
-            circle.addEventListener('mouseout', () => {
-                circle.setAttribute('fill', 'blue');
-            });
-        };
+        // Placeholder for Option 2: Direct SVG embedding
+        // When ready to implement interactivity, we'll:
+        // 1. Fetch the SVG content
+        // 2. Embed it directly in the DOM
+        // 3. Add event listeners for hover effects
+        
+        console.log('SVG map loaded. Ready for Option 2 implementation.');
     </script>
 </body>
 </html>
