@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inlets at Riverdale</title>
+
   <style>
     body {
       margin: 0;
@@ -16,10 +17,23 @@
       margin: 20px 0 10px;
     }
 
+    #status {
+      max-width: 1200px;
+      margin: 0 auto 12px;
+      padding: 10px;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
     #map-wrap {
       width: 100%;
       max-width: 1400px;
       margin: 0 auto;
+      background: white;
     }
 
     object {
@@ -27,77 +41,110 @@
       height: 900px;
       border: none;
       display: block;
-      background: white;
     }
   </style>
 </head>
+
 <body>
   <h1>Welcome to Inlets at Riverdale</h1>
 
+  <div id="status">Loading map...</div>
+
   <div id="map-wrap">
     <object id="hoaMap"
-            data="./inlets-map-near-final-google.svg"
+            data="./inlets-map-near-final-google.svg?v=3"
             type="image/svg+xml">
-      Your browser does not support SVG.
     </object>
   </div>
 
   <script>
+    const statusBox = document.getElementById("status");
     const svgObject = document.getElementById("hoaMap");
 
+    function log(msg) {
+      statusBox.textContent += "\n" + msg;
+      console.log(msg);
+    }
+
+    statusBox.textContent = "Waiting for SVG...";
+
     svgObject.addEventListener("load", function () {
+
+      log("SVG loaded.");
+
       const svgDoc = svgObject.contentDocument;
+
       if (!svgDoc) {
-        console.log("SVG did not load.");
+        log("ERROR: contentDocument is NULL");
         return;
       }
 
+      log("SVG document found.");
+
       const areas = [
-        { id: "harbour-walk", label: "Harbour Walk" },
-        { id: "harbour-walk-the-reserve", label: "Harbour Walk The Reserve" },
-        { id: "inlets-neighborhood", label: "Inlets Neighborhood" }
+        {
+          id: "harbour-walk-the-reserve",
+          label: "Harbour Walk The Reserve",
+          color: "#1f5cff"
+        },
+        {
+          id: "harbour-walk",
+          label: "Harbour Walk",
+          color: "#d62828"
+        },
+        {
+          id: "inlets-neighborhood",
+          label: "Inlets Neighborhood",
+          color: "#1b8f3a"
+        }
       ];
 
       areas.forEach(area => {
+
         const el = svgDoc.getElementById(area.id);
 
         if (!el) {
-          console.log("Missing SVG area:", area.id);
+          log("Missing: " + area.id);
           return;
         }
 
-        console.log("Found SVG area:", area.id);
+        log("Found: " + area.id);
 
-        el.style.cursor = "pointer";
+        el.style.setProperty("pointer-events", "all", "important");
+        el.style.setProperty("cursor", "pointer", "important");
 
-        // make the area lightly visible at rest
-        el.style.fill = "#0066cc";
-        el.style.fillOpacity = "0.18";
-        el.style.stroke = "#0066cc";
-        el.style.strokeOpacity = "0.65";
-        el.style.strokeWidth = "1";
+        el.style.setProperty("fill", area.color, "important");
+        el.style.setProperty("fill-opacity", "0.18", "important");
+
+        el.style.setProperty("stroke", area.color, "important");
+        el.style.setProperty("stroke-opacity", "1", "important");
+        el.style.setProperty("stroke-width", "1.5", "important");
 
         el.addEventListener("mouseover", () => {
-          el.style.fill = "#ff8c00";
-          el.style.fillOpacity = "0.28";
-          el.style.stroke = "#ff8c00";
-          el.style.strokeOpacity = "0.95";
-          el.style.strokeWidth = "1.5";
+          log("Hover: " + area.id);
+
+          el.style.setProperty("fill-opacity", "0.40", "important");
+          el.style.setProperty("stroke-width", "2.5", "important");
         });
 
         el.addEventListener("mouseout", () => {
-          el.style.fill = "#0066cc";
-          el.style.fillOpacity = "0.18";
-          el.style.stroke = "#0066cc";
-          el.style.strokeOpacity = "0.65";
-          el.style.strokeWidth = "1";
+          el.style.setProperty("fill-opacity", "0.18", "important");
+          el.style.setProperty("stroke-width", "1.5", "important");
         });
 
         el.addEventListener("click", () => {
+          log("Click: " + area.label);
           alert(area.label);
         });
+
       });
+
+    });
+
+    svgObject.addEventListener("error", function () {
+      log("ERROR: SVG failed to load");
     });
   </script>
+
 </body>
 </html>
