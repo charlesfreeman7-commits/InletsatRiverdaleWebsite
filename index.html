@@ -57,94 +57,114 @@
     </object>
   </div>
 
-  <script>
-    const statusBox = document.getElementById("status");
-    const svgObject = document.getElementById("hoaMap");
+ <script>
+  const statusBox = document.getElementById("status");
+  const svgObject = document.getElementById("hoaMap");
 
-    function log(msg) {
-      statusBox.textContent += "\n" + msg;
-      console.log(msg);
+  function log(msg) {
+    statusBox.textContent += "\n" + msg;
+    console.log(msg);
+  }
+
+  statusBox.textContent = "Waiting for SVG...";
+
+  svgObject.addEventListener("load", function () {
+
+    log("SVG loaded.");
+
+    const svgDoc = svgObject.contentDocument;
+
+    if (!svgDoc) {
+      log("ERROR: contentDocument is NULL");
+      return;
     }
 
-    statusBox.textContent = "Waiting for SVG...";
+    log("SVG document found.");
 
-    svgObject.addEventListener("load", function () {
+    const areas = [
+      {
+        id: "harbour-walk-the-reserve",
+        label: "Harbour Walk The Reserve",
+        color: "#1f5cff"
+      },
+      {
+        id: "harbour-walk",
+        label: "Harbour Walk",
+        color: "#d62828"
+      },
+      {
+        id: "inlets-neighborhood",
+        label: "Inlets Neighborhood",
+        color: "#1b8f3a"
+      }
+    ];
 
-      log("SVG loaded.");
+    areas.forEach(area => {
 
-      const svgDoc = svgObject.contentDocument;
+      const el = svgDoc.getElementById(area.id);
 
-      if (!svgDoc) {
-        log("ERROR: contentDocument is NULL");
+      if (!el) {
+        log("Missing: " + area.id);
         return;
       }
 
-      log("SVG document found.");
+      log("Found: " + area.id);
 
-      const areas = [
-        {
-          id: "harbour-walk-the-reserve",
-          label: "Harbour Walk The Reserve",
-          color: "#1f5cff"
-        },
-        {
-          id: "harbour-walk",
-          label: "Harbour Walk",
-          color: "#d62828"
-        },
-        {
-          id: "inlets-neighborhood",
-          label: "Inlets Neighborhood",
-          color: "#1b8f3a"
-        }
-      ];
+      // Base (very subtle)
+      el.style.setProperty("pointer-events", "all", "important");
+      el.style.setProperty("cursor", "pointer", "important");
 
-      areas.forEach(area => {
+      el.style.setProperty("fill", area.color, "important");
+      el.style.setProperty("fill-opacity", "0.06", "important");   // VERY light
 
-        const el = svgDoc.getElementById(area.id);
+      el.style.setProperty("stroke", area.color, "important");
+      el.style.setProperty("stroke-opacity", "0.25", "important"); // faint border
+      el.style.setProperty("stroke-width", "0.5", "important");    // thin line
 
-        if (!el) {
-          log("Missing: " + area.id);
-          return;
-        }
+      // Try to find label (if text exists in SVG)
+      const label = svgDoc.querySelector(`text[data-label="${area.id}"], #${area.id}-label`);
 
-        log("Found: " + area.id);
+      el.addEventListener("mouseover", () => {
 
-        el.style.setProperty("pointer-events", "all", "important");
-        el.style.setProperty("cursor", "pointer", "important");
-
-        el.style.setProperty("fill", area.color, "important");
-        el.style.setProperty("fill-opacity", "0.18", "important");
-
-        el.style.setProperty("stroke", area.color, "important");
+        el.style.setProperty("fill-opacity", "0.35", "important");
         el.style.setProperty("stroke-opacity", "1", "important");
-        el.style.setProperty("stroke-width", "1.5", "important");
+        el.style.setProperty("stroke-width", "2.2", "important");
 
-        el.addEventListener("mouseover", () => {
-          log("Hover: " + area.id);
+        // enlarge label if found
+        if (label) {
+          label.style.transition = "all 0.2s ease";
+          label.style.transform = "scale(1.25)";
+          label.style.transformOrigin = "center";
+          label.style.fontWeight = "bold";
+        }
 
-          el.style.setProperty("fill-opacity", "0.40", "important");
-          el.style.setProperty("stroke-width", "2.5", "important");
-        });
+      });
 
-        el.addEventListener("mouseout", () => {
-          el.style.setProperty("fill-opacity", "0.18", "important");
-          el.style.setProperty("stroke-width", "1.5", "important");
-        });
+      el.addEventListener("mouseout", () => {
 
-        el.addEventListener("click", () => {
-          log("Click: " + area.label);
-          alert(area.label);
-        });
+        el.style.setProperty("fill-opacity", "0.06", "important");
+        el.style.setProperty("stroke-opacity", "0.25", "important");
+        el.style.setProperty("stroke-width", "0.5", "important");
 
+        if (label) {
+          label.style.transform = "scale(1)";
+          label.style.fontWeight = "normal";
+        }
+
+      });
+
+      el.addEventListener("click", () => {
+        alert(area.label);
       });
 
     });
 
-    svgObject.addEventListener("error", function () {
-      log("ERROR: SVG failed to load");
-    });
-  </script>
+  });
+
+  svgObject.addEventListener("error", function () {
+    log("ERROR: SVG failed to load");
+  });
+</script>
 
 </body>
 </html>
